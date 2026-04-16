@@ -29,13 +29,63 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Prepare deploy
-        run: cp CNAME .vitepress/dist/CNAME
+      - name: Prepare deploy bundle
+        run: |
+          rm -rf .vitepress/deploy
+          mkdir -p .vitepress/deploy/usagi
+          rsync -a --delete .vitepress/dist/ .vitepress/deploy/usagi/
+
+          cat > .vitepress/deploy/index.html <<'HTML'
+          <!doctype html>
+          <html lang="en">
+            <head>
+              <meta charset="utf-8">
+              <meta name="viewport" content="width=device-width,initial-scale=1">
+              <title>Redirecting to Usagi</title>
+              <meta http-equiv="refresh" content="0;url=/usagi/">
+              <script>
+                (function () {
+                  var target = "/usagi/" + window.location.search + window.location.hash;
+                  window.location.replace(target);
+                })();
+              </script>
+            </head>
+            <body>
+              Redirecting to <a href="/usagi/">/usagi/</a>...
+            </body>
+          </html>
+          HTML
+
+          cat > .vitepress/deploy/404.html <<'HTML'
+          <!doctype html>
+          <html lang="en">
+            <head>
+              <meta charset="utf-8">
+              <meta name="viewport" content="width=device-width,initial-scale=1">
+              <title>Redirecting to Usagi</title>
+              <script>
+                (function () {
+                  var path = window.location.pathname;
+                  if (!path.startsWith("/usagi/")) {
+                    var cleanPath = path.startsWith("/") ? path : "/" + path;
+                    var target = "/usagi" + cleanPath + window.location.search + window.location.hash;
+                    window.location.replace(target);
+                  }
+                })();
+              </script>
+            </head>
+            <body>
+              Redirecting...
+            </body>
+          </html>
+          HTML
+
+          cp CNAME .vitepress/deploy/CNAME
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
-          folder: .vitepress/dist
+          folder: .vitepress/deploy
           git-config-name: usagi-bot
           git-config-email: bot@yumemi.moe
