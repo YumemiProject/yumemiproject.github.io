@@ -1,0 +1,63 @@
+{
+  "name": "usagi-website",
+  "version": "1.0.0",
+  "repository": "https://github.com/YumemiProject/yumemiproject.github.io.git",
+  "type": "module",
+  "private": true,
+  "contributors": [
+    {
+      "name": "Zakhar Timoshenko",
+      "email": "xtimms@live.com"
+    },
+    {
+      "name": "Koitharu",
+      "email": "nvasya95@gmail.com"
+    }
+  ],
+  "scripts": {
+    "dev": "vitepress dev",
+    "build": "vitepress build",
+    "preview": "vitepress preview",
+    "lint": "eslint .",
+    "lint:md": "markdownlint **/*.md --disable MD045",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "@resvg/resvg-js": "^2.6.2",
+    "@types/gtag.js": "^0.0.20",
+    "@types/markdown-it": "^14.1.2",
+    "@types/node": "^24.8.1",
+    "eslint": "^9.38.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-perfectionist": "^4.15.1",
+    "eslint-plugin-vue": "^10.5.1",
+    "gray-matter": "^4.0.3",
+    "markdown-it": "^14.1.0",
+    "markdown-it-container": "^4.0.0",
+    "markdown-it-kbd": "^3.0.0",
+    "markdown-it-shortcode-tag": "1.1.0",
+    "markdownlint": "^0.39.0",
+    "markdownlint-cli": "^0.45.0",
+    "postcss-nesting": "^13.0.2",
+    "prettier": "^3.6.2",
+    "tinyglobby": "^0.2.15",
+    "transliteration": "^2.3.5",
+    "typescript-eslint": "^8.46.2",
+    "vitepress": "^1.6.4",
+    "vitepress-plugin-tabs": "^0.7.3",
+    "vue": "^3.5.22",
+    "x-satori": "^0.4.0"
+  },
+  "dependencies": {
+    "@octokit/rest": "^22.0.0",
+    "@octokit/types": "^15.0.0",
+    "@vueuse/core": "^13.9.0",
+    "@vueuse/integrations": "^13.9.0",
+    "dayjs": "^1.11.18",
+    "glightbox": "^3.3.1",
+    "qrcode": "^1.5.4"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

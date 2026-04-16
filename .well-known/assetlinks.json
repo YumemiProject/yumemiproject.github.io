@@ -1,0 +1,10 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "org.draken.usagi",
+      "sha256_cert_fingerprints": ["4C:0B:D9:18:88:36:B7:27:9D:CF:91:12:3A:C9:9D:C4:F5:4F:E2:21:FB:66:FB:92:03:80:3D:16:7E:06:6F:C9"]
+    }
+  }
+]

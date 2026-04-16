@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "types": ["vite/client", "@types/gtag.js"],
+    "paths": {
+      "@/*": ["./.vitepress/*"]
+    }
+  },
+  "include": [".vitepress/theme/**/*", "node_modules/vitepress/dist/client/theme-default/components/**/*.vue"]
+}
