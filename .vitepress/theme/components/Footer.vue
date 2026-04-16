@@ -7,25 +7,25 @@ import { socialList } from "../utils";
 import Link from "./BaseLink.vue";
 
 const { theme, frontmatter } = useData();
-const qrcode = useQRCode(theme.value.footer.qrcodeLink);
+const qrcode = useQRCode(theme.value.footer?.qrcodeLink ?? "");
 </script>
 
 <template>
-  <div v-if="frontmatter.footer !== false" class="container slide-enter">
+  <div v-if="frontmatter.footer !== false && theme.footer" class="container slide-enter">
     <footer class="footer">
       <div class="footer__content">
         <nav v-for="item in theme.footer.navigation" :key="item.title" class="footer__navigation">
           <h3 class="footer__title">{{ item.title }}</h3>
           <ul class="footer__list">
             <li v-for="ic in item.items" :key="ic.text" class="footer__item">
-              <Link :href="withBase(ic.link)" :title="ic.text + '（' + withBase(ic.link) + '）'" no-icon>
+              <Link :href="ic.link ? withBase(ic.link) : '#'" :title="ic.text + '（' + (ic.link ? withBase(ic.link) : '') + '）'" no-icon>
                 {{ ic.text }}
               </Link>
             </li>
           </ul>
         </nav>
 
-        <div class="qrcode">
+        <div v-if="theme.footer.qrcodeLink" class="qrcode">
           <img :src="qrcode" alt="QR Code" class="qrcode__img" />
           <h4 class="qrcode__title">{{ theme.footer.qrcodeTitle }}</h4>
           <p class="qrcode__description">{{ theme.footer.qrcodeMessage }}</p>

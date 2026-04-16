@@ -224,7 +224,7 @@ function getNav(): DefaultTheme.NavItem[] {
   ];
 }
 
-function getFooter(): CustomConfig["footer"] {
+export function getFooter(): CustomConfig["footer"] {
   return {
     qrcodeTitle: "Telegram Group",
     qrcodeMessage: "Contact us on Telegram",

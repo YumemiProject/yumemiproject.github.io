@@ -10,7 +10,8 @@ import type { ThemeConfig } from "../theme/types";
 import { telegram } from "../../website/icons";
 import { addPlugins } from "../theme/plugins/markdown";
 import { prepareData, sections } from "../theme/plugins/section";
-import { config as root, searchLocale as searchLocaleEn } from "./en";
+import { config as root, getFooter, searchLocale as searchLocaleEn } from "./en";
+import { resolveBaseUrl } from "../theme/utils";
 import generateMeta from "./hooks/generateMeta";
 import generateOgImages from "./hooks/generateOgImages";
 import shortcodes from "./shortcodes";
@@ -100,6 +101,7 @@ export default defineConfigWithTheme<ThemeConfig>({
       },
     },
 
+    footer: resolveBaseUrl(getFooter(), ""),
     sections,
   },
 
@@ -128,7 +130,7 @@ export default defineConfigWithTheme<ThemeConfig>({
     plugins: [],
     resolve: {
       alias: ["VPSidebar", "VPNavBarTranslations", "VPNavScreenTranslations", "VPNavBar", "VPNavBarMenu", "VPNavScreenMenu", "VPFooter"].map((componentName) => ({
-        find: new RegExp(`^.*/${componentName}.vue$`),
+        find: new RegExp(`^.*\\/${componentName}\\.vue$`),
         replacement: fileURLToPath(new URL(`../theme/components/${componentName.replace(/^VP/, "")}.vue`, import.meta.url)),
       })),
     },
