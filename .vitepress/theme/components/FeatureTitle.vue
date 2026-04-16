@@ -1,8 +1,8 @@
 <template>
   <div class="FeatureTitle">
     <div class="container">
-      <p class="title">What Usagi can do?</p>
-      <h1 class="subtitle">And here's what it does!</h1>
+      <p class="title">What's different with Kotatsu'?</p>
+      <h1 class="subtitle">And here's how it differs!</h1>
     </div>
   </div>
 </template>
