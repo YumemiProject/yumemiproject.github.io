@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Redirecting to Usagi</title>
+    <script>
+      (function () {
+        var path = window.location.pathname.startsWith("/") ? window.location.pathname : "/" + window.location.pathname;
+        var target = "/usagi" + path + window.location.search + window.location.hash;
+        window.location.replace(target);
+      })();
+    </script>
+  </head>
+  <body>
+    Redirecting...
+  </body>
+</html>
