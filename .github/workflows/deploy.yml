@@ -33,39 +33,37 @@ jobs:
         run: |
           rm -rf .vitepress/deploy
           mkdir -p .vitepress/deploy
-          # Copy everything to root
-          rsync -a --delete .vitepress/dist/ .vitepress/deploy/
-
-          # Create a redirect for the old /usagi/ path
+          
+          # Copy all contents from dist to deploy root
+          # shopt dotglob ensures hidden files like .nojekyll are included
+          shopt -s dotglob
+          cp -r .vitepress/dist/* .vitepress/deploy/
+          
+          # Create redirect folder for backward compatibility
           mkdir -p .vitepress/deploy/usagi
           cat > .vitepress/deploy/usagi/index.html <<'HTML'
           <!doctype html>
-          <html lang="en">
+          <html>
             <head>
               <meta charset="utf-8">
-              <meta http-equiv="refresh" content="0;url=/">
+              <title>Redirecting...</title>
               <script>
-                (function () {
-                  var path = window.location.pathname;
-                  var target = path.replace(/^\/usagi\//, "/") + window.location.search + window.location.hash;
-                  window.location.replace(target);
+                (function() {
+                  var p = window.location.pathname;
+                  var t = p.startsWith("/usagi/") ? p.substring(6) : (p === "/usagi" ? "/" : p);
+                  window.location.replace(t + window.location.search + window.location.hash);
                 })();
               </script>
-              <title>Redirecting...</title>
+              <meta http-equiv="refresh" content="0;url=/">
             </head>
-            <body>
-              Redirecting to <a href="/">home</a>...
-            </body>
+            <body>Redirecting...</body>
           </html>
           HTML
 
-          # Simplified root 404.html for SPA-like routing if needed, 
-          # otherwise VitePress will use its own 404.html
-          cp .vitepress/dist/404.html .vitepress/deploy/404.html
-
-          # Ensure GitHub Pages doesn't ignore underscored folders
+          # Final touch to ensure GitHub Pages serves underscore folders
           touch .vitepress/deploy/.nojekyll
-
+          
+          # Ensure CNAME is at deploy root for the custom domain
           cp CNAME .vitepress/deploy/CNAME
 
       - name: Deploy 🚀
