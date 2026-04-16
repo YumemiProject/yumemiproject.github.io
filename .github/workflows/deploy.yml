@@ -89,5 +89,5 @@ jobs:
         with:
           branch: gh-pages
           folder: .vitepress/deploy
-          git-config-name: usagi-bot
-          git-config-email: bot@yumemi.moe
+          git-config-name: yakabot
+          git-config-email: yakateam@proton.me
