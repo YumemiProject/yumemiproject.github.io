@@ -140,6 +140,6 @@ export default defineConfigWithTheme<ThemeConfig>({
   },
 
   buildEnd: async (context) => {
-    generateOgImages(context);
+    await generateOgImages(context);
   },
 });
