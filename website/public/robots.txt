@@ -1,2 +1,2 @@
 User-agent: *
-Sitemap: https://yumemi.moe/usagi/sitemap.xml
+Sitemap: https://yumemi.moe/sitemap.xml

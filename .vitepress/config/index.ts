@@ -18,8 +18,8 @@ import shortcodes from "./shortcodes";
 const SITE_HOST = "https://yumemi.moe";
 const SITE_TITLE = "yumemi.moe";
 const SITE_TITLE_SEPARATOR = " / ";
-const SITE_BASE = "/usagi/";
-const SITE_URL = new URL(SITE_BASE, SITE_HOST).toString().replace(/\/$/, "");
+const SITE_BASE = "/";
+const SITE_URL = SITE_HOST;
 
 function mapSitemapUrlToBase(url: string): string {
   const siteOrigin = new URL(SITE_HOST).origin;
@@ -39,27 +39,6 @@ function mapSitemapUrlToBase(url: string): string {
   parsed.pathname = `${sitemapBase}${normalizedPath}`.replace(/\/{2,}/g, "/");
   return parsed.toString();
 }
-const LEGACY_PATH_REDIRECT_SCRIPT = `
-(() => {
-  if (typeof window === "undefined") return;
-
-  const base = ${JSON.stringify(SITE_BASE)};
-  const basePath = base.endsWith("/") ? base.slice(0, -1) : base;
-  const { pathname, search, hash } = window.location;
-
-  if (pathname === basePath && !pathname.endsWith("/")) {
-    window.location.replace(base + search + hash);
-    return;
-  }
-
-  if (pathname.startsWith(basePath + "/")) {
-    return;
-  }
-
-  const normalizedPath = pathname.startsWith("/") ? pathname : "/" + pathname;
-  window.location.replace(basePath + normalizedPath + search + hash);
-})();
-`;
 
 export default defineConfigWithTheme<ThemeConfig>({
   lastUpdated: true,
@@ -133,63 +112,20 @@ export default defineConfigWithTheme<ThemeConfig>({
   },
 
   head: [
-    ["script", {}, LEGACY_PATH_REDIRECT_SCRIPT],
     // Fonts
     ["link", { rel: "preconnect", href: "https://fonts.googleapis.com" }],
     ["link", { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" }],
     ["link", { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" }],
     // Icons and webmanifest
-    ["link", { rel: "icon", href: `${SITE_BASE}favicon.ico?v=2`, sizes: "any" }],
-    ["link", { rel: "icon", href: `${SITE_BASE}logo-compact.svg?v=2`, type: "image/svg+xml" }],
-    ["link", { rel: "apple-touch-icon", href: `${SITE_BASE}apple-touch-icon.png?v=2` }],
-    ["link", { rel: "manifest", href: `${SITE_BASE}site.webmanifest` }],
+    ["link", { rel: "icon", href: "/favicon.ico?v=2", sizes: "any" }],
+    ["link", { rel: "icon", href: "/logo-compact.svg?v=2", type: "image/svg+xml" }],
+    ["link", { rel: "apple-touch-icon", href: "/apple-touch-icon.png?v=2" }],
+    ["link", { rel: "manifest", href: "/site.webmanifest" }],
   ],
   transformHead: async (context) => generateMeta(context, SITE_URL),
 
   vite: {
-    plugins: [
-      {
-        name: "legacy-base-path-redirect",
-        configureServer(server) {
-          server.middlewares.use((req, res, next) => {
-            const url = req.url;
-            if (!url) {
-              next();
-              return;
-            }
-
-            if (url.startsWith(SITE_BASE) || url.startsWith("/@") || url.startsWith("/__vite")) {
-              next();
-              return;
-            }
-
-            const target = url.startsWith("/") ? `${SITE_BASE.slice(0, -1)}${url}` : `${SITE_BASE}${url}`;
-            res.statusCode = 307;
-            res.setHeader("Location", target);
-            res.end();
-          });
-        },
-        configurePreviewServer(server) {
-          server.middlewares.use((req, res, next) => {
-            const url = req.url;
-            if (!url) {
-              next();
-              return;
-            }
-
-            if (url.startsWith(SITE_BASE)) {
-              next();
-              return;
-            }
-
-            const target = url.startsWith("/") ? `${SITE_BASE.slice(0, -1)}${url}` : `${SITE_BASE}${url}`;
-            res.statusCode = 307;
-            res.setHeader("Location", target);
-            res.end();
-          });
-        },
-      },
-    ],
+    plugins: [],
     resolve: {
       alias: ["VPSidebar", "VPNavBarTranslations", "VPNavScreenTranslations", "VPNavBar", "VPNavBarMenu", "VPNavScreenMenu", "VPFooter"].map((componentName) => ({
         find: new RegExp(`^.*/${componentName}.vue$`),
