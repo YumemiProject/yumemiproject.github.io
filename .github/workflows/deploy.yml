@@ -63,7 +63,8 @@ jobs:
           # otherwise VitePress will use its own 404.html
           cp .vitepress/dist/404.html .vitepress/deploy/404.html
 
-          cp CNAME .vitepress/deploy/CNAME
+          # Ensure GitHub Pages doesn't ignore underscored folders
+          touch .vitepress/deploy/.nojekyll
 
           cp CNAME .vitepress/deploy/CNAME
 
