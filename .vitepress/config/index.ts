@@ -18,8 +18,8 @@ import shortcodes from "./shortcodes";
 const SITE_HOST = "https://yumemi.moe";
 const SITE_TITLE = "yumemi.moe";
 const SITE_TITLE_SEPARATOR = " / ";
-const SITE_BASE = "/usagi/";
-const SITE_URL = "https://yumemi.moe/usagi";
+const SITE_BASE = "/";
+const SITE_URL = "https://yumemi.moe";
 
 function mapSitemapUrlToBase(url: string): string {
   const siteOrigin = new URL(SITE_HOST).origin;
@@ -117,10 +117,10 @@ export default defineConfigWithTheme<ThemeConfig>({
     ["link", { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" }],
     ["link", { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" }],
     // Icons and webmanifest
-    ["link", { rel: "icon", href: "/usagi/favicon.ico?v=2", sizes: "any" }],
-    ["link", { rel: "icon", href: "/usagi/logo-compact.svg?v=2", type: "image/svg+xml" }],
-    ["link", { rel: "apple-touch-icon", href: "/usagi/apple-touch-icon.png?v=2" }],
-    ["link", { rel: "manifest", href: "/usagi/site.webmanifest" }],
+    ["link", { rel: "icon", href: "/favicon.ico?v=2", sizes: "any" }],
+    ["link", { rel: "icon", href: "/logo-compact.svg?v=2", type: "image/svg+xml" }],
+    ["link", { rel: "apple-touch-icon", href: "/apple-touch-icon.png?v=2" }],
+    ["link", { rel: "manifest", href: "/site.webmanifest" }],
   ],
   transformHead: async (context) => generateMeta(context, SITE_URL),
 
