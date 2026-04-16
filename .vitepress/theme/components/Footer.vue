@@ -11,13 +11,13 @@ const qrcode = useQRCode(theme.value.footer?.qrcodeLink ?? "");
 </script>
 
 <template>
-  <div v-if="frontmatter.footer !== false && theme.footer" class="site-container slide-enter">
-    <footer class="site-footer">
-      <div class="site-footer__content">
-        <nav v-for="item in theme.footer.navigation" :key="item.title" class="site-footer__navigation">
-          <h3 class="site-footer__title">{{ item.title }}</h3>
-          <ul class="site-footer__list">
-            <li v-for="ic in item.items" :key="ic.text" class="site-footer__item">
+  <div v-if="frontmatter.footer !== false" class="y-box">
+    <div class="y-area" role="contentinfo">
+      <div v-if="theme?.footer" class="y-area__inner">
+        <nav v-for="item in theme.footer.navigation" :key="item.title" class="y-area__nav">
+          <h3 class="y-area__label">{{ item.title }}</h3>
+          <ul class="y-area__list">
+            <li v-for="ic in item.items" :key="ic.text" class="y-area__item">
               <Link :href="ic.link ? withBase(ic.link) : '#'" :title="ic.text + '（' + (ic.link ? withBase(ic.link) : '') + '）'" no-icon>
                 {{ ic.text }}
               </Link>
@@ -25,31 +25,31 @@ const qrcode = useQRCode(theme.value.footer?.qrcodeLink ?? "");
           </ul>
         </nav>
 
-        <div v-if="theme.footer.qrcodeLink" class="footer-qr-panel">
-          <img :src="qrcode" alt="QR Code" class="footer-qr-panel__img" />
-          <h4 class="footer-qr-panel__title">{{ theme.footer.qrcodeTitle }}</h4>
-          <p class="footer-qr-panel__description">{{ theme.footer.qrcodeMessage }}</p>
+        <div v-if="theme.footer.qrcodeLink" class="y-panel-qr">
+          <img :src="qrcode" alt="QR Code" class="y-panel-qr__img" />
+          <h4 class="y-panel-qr__title">{{ theme.footer.qrcodeTitle }}</h4>
+          <p class="y-panel-qr__description">{{ theme.footer.qrcodeMessage }}</p>
         </div>
       </div>
 
-      <div class="site-footer__social-links">
-        <div class="site-footer__copy-info">
+      <div class="y-social-links-row">
+        <div class="y-copy-info-block">
           <GPL height="24" />
           <p>GPL-3.0 Licensed<br />Yumemi Developers</p>
         </div>
 
-        <ul>
-          <li v-for="item in socialList" :key="item.link" class="site-footer__social-item">
-            <a :href="item.link" :aria-label="item.title" :title="item.title" target="_blank" class="site-footer__social-link" rel="noopener noreferrer" v-html="item.icon"> </a>
+        <ul class="y-social-items-list">
+          <li v-for="item in socialList" :key="item.link" class="y-social-item-wrap">
+            <a :href="item.link" :aria-label="item.title" :title="item.title" target="_blank" class="y-social-link-btn" rel="noopener noreferrer" v-html="item.icon"> </a>
           </li>
         </ul>
       </div>
-    </footer>
+    </div>
   </div>
 </template>
 
 <style scoped>
-.site-container {
+.y-box {
   z-index: 1;
   position: relative;
   right: 0;
@@ -57,22 +57,23 @@ const qrcode = useQRCode(theme.value.footer?.qrcodeLink ?? "");
   padding: 0 32px;
   background-color: var(--vp-c-bg-alt);
 
-  .is-home ~ & .site-footer {
+  .is-home ~ & .y-area {
     max-width: 1152px;
   }
 }
 
-.site-footer {
+.y-area {
   font-size: 0.87rem;
   line-height: 1.25rem;
   margin: 0 auto;
+  display: block;
 
   &:first-child {
     padding-top: 2.5rem;
   }
 }
 
-.site-footer__social-links {
+.y-social-links-row {
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -83,8 +84,8 @@ const qrcode = useQRCode(theme.value.footer?.qrcodeLink ?? "");
     display: flex;
     gap: 1rem;
 
-    .site-footer__social-item {
-      .site-footer__social-link {
+    .y-social-item-wrap {
+      .y-social-link-btn {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -106,7 +107,7 @@ const qrcode = useQRCode(theme.value.footer?.qrcodeLink ?? "");
     }
   }
 
-  .site-footer__copy-info {
+  .y-copy-info-block {
     display: flex;
     gap: 0.5rem;
     align-items: center;
@@ -117,7 +118,7 @@ const qrcode = useQRCode(theme.value.footer?.qrcodeLink ?? "");
   }
 }
 
-.site-footer__navigation {
+.y-area__nav {
   width: 100%;
   line-height: 32px;
   font-size: 14px;
@@ -130,7 +131,7 @@ const qrcode = useQRCode(theme.value.footer?.qrcodeLink ?? "");
     border-top: 1px solid var(--vp-c-divider);
   }
 
-  .site-footer__title {
+  .y-area__label {
     width: 100%;
     user-select: all;
     font-weight: 700;
@@ -163,13 +164,13 @@ const qrcode = useQRCode(theme.value.footer?.qrcodeLink ?? "");
     }
   }
 
-  .site-footer__list {
+  .y-area__list {
     width: 100%;
     height: 0;
     overflow: hidden;
     transition: 0.3s ease;
 
-    .site-footer__item {
+    .y-area__item {
       &:last-child {
         margin-bottom: 16px;
       }
@@ -189,7 +190,7 @@ const qrcode = useQRCode(theme.value.footer?.qrcodeLink ?? "");
   }
 }
 
-.footer-qr-panel {
+.y-panel-qr {
   width: 192px;
   padding: 1.5rem;
   box-sizing: border-box;
@@ -204,12 +205,12 @@ const qrcode = useQRCode(theme.value.footer?.qrcodeLink ?? "");
   line-height: 22px;
   color: var(--vp-c-text-2);
 
-  .footer-qr-panel__img {
+  .y-panel-qr__img {
     box-shadow: var(--vp-shadow-1);
     border-radius: var(--vp-border-radius);
   }
 
-  .footer-qr-panel__title {
+  .y-panel-qr__title {
     margin-top: 4px;
     font-size: 16px;
     line-height: 24px;
@@ -217,25 +218,25 @@ const qrcode = useQRCode(theme.value.footer?.qrcodeLink ?? "");
     color: var(--vp-c-text-1);
   }
 
-  .footer-qr-panel__description {
+  .y-panel-qr__description {
     font-size: 14px;
   }
 }
 
 @media (min-width: 768px) {
-  .site-footer {
+  .y-area {
     & > :last-child {
       border-top: 1px solid var(--vp-c-divider);
     }
   }
 
-  .site-footer__social-links {
+  .y-social-links-row {
     flex-direction: row;
     align-items: unset;
     justify-content: space-between;
   }
 
-  .site-footer__content {
+  .y-area__inner {
     display: grid;
     place-items: start;
     grid-auto-flow: column;
@@ -246,41 +247,41 @@ const qrcode = useQRCode(theme.value.footer?.qrcodeLink ?? "");
       border-top: 1px solid var(--vp-c-divider);
     }
 
-    .site-footer__navigation {
+    .y-area__nav {
       place-items: self-start;
       border: none;
       border-top: none;
 
-      .site-footer__title {
+      .y-area__label {
         &::after {
           display: none;
         }
       }
 
-      .site-footer__list {
+      .y-area__list {
         height: 100%;
 
-        & > .site-footer__item > a {
+        & > .y-area__item > a {
           padding: 0;
         }
       }
     }
   }
 
-  .footer-qr-panel {
+  .y-panel-qr {
     display: flex;
   }
 }
 
 @media (min-width: 960px) {
-  .VPSidebar ~ .site-container {
+  .VPSidebar ~ .y-box {
     width: calc(100% - var(--vp-sidebar-width));
     left: var(--vp-sidebar-width);
   }
 }
 
 @media (min-width: 1440px) {
-  .site-footer {
+  .y-area {
     max-width: 945px;
   }
 }

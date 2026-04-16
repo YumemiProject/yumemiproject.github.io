@@ -129,10 +129,15 @@ export default defineConfigWithTheme<ThemeConfig>({
   vite: {
     plugins: [],
     resolve: {
-      alias: ["VPSidebar", "VPNavBarTranslations", "VPNavScreenTranslations", "VPNavBar", "VPNavBarMenu", "VPNavScreenMenu", "VPFooter"].map((componentName) => ({
-        find: new RegExp(`^.*\\/${componentName}\\.vue$`),
-        replacement: fileURLToPath(new URL(`../theme/components/${componentName.replace(/^VP/, "")}.vue`, import.meta.url)),
-      })),
+      alias: [
+        { find: /^.*\/VPFooter\.vue$/, replacement: fileURLToPath(new URL("../theme/components/Footer.vue", import.meta.url)) },
+        { find: /^.*\/VPSidebar\.vue$/, replacement: fileURLToPath(new URL("../theme/components/Sidebar.vue", import.meta.url)) },
+        { find: /^.*\/VPNavBar\.vue$/, replacement: fileURLToPath(new URL("../theme/components/NavBar.vue", import.meta.url)) },
+        { find: /^.*\/VPNavBarMenu\.vue$/, replacement: fileURLToPath(new URL("../theme/components/NavBarMenu.vue", import.meta.url)) },
+        { find: /^.*\/VPNavScreenMenu\.vue$/, replacement: fileURLToPath(new URL("../theme/components/NavScreenMenu.vue", import.meta.url)) },
+        { find: /^.*\/VPNavBarTranslations\.vue$/, replacement: fileURLToPath(new URL("../theme/components/NavBarTranslations.vue", import.meta.url)) },
+        { find: /^.*\/VPNavScreenTranslations\.vue$/, replacement: fileURLToPath(new URL("../theme/components/NavScreenTranslations.vue", import.meta.url)) },
+      ],
     },
   },
 
