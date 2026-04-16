@@ -1,18 +1,16 @@
 <!doctype html>
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="refresh" content="0;url=/">
+    <title>Redirecting...</title>
     <script>
-      (function () {
-        var path = window.location.pathname;
-        var target = path.replace(/^\/usagi\//, "/") + window.location.search + window.location.hash;
-        window.location.replace(target);
+      (function() {
+        var p = window.location.pathname;
+        var t = p.startsWith("/usagi/") ? p.substring(6) : (p === "/usagi" ? "/" : p);
+        window.location.replace(t + window.location.search + window.location.hash);
       })();
     </script>
-    <title>Redirecting...</title>
+    <meta http-equiv="refresh" content="0;url=/">
   </head>
-  <body>
-    Redirecting to <a href="/">home</a>...
-  </body>
+  <body>Redirecting...</body>
 </html>
