@@ -1,7 +1,7 @@
 <template>
   <div class="FeatureTitle">
     <div class="container">
-      <p class="title">What's different with Kotatsu'?</p>
+      <p class="title">What's different with Kotatsu?</p>
       <h1 class="subtitle">And here's how it differs!</h1>
     </div>
   </div>
