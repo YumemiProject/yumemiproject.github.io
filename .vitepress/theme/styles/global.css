@@ -485,3 +485,29 @@ span.name {
   width: 64px;
   height: 1px;
 }
+
+.VPContent,
+.VPSidebar {
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1) !important, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+html.cross-switching .VPContent {
+  opacity: 0 !important;
+  transform: translateY(120px) !important;
+  pointer-events: none !important;
+  transition: opacity 0.4s ease-out, transform 0.6s ease-in !important;
+}
+
+html.cross-switching .VPSidebar {
+  opacity: 0 !important;
+  transform: translateX(-150px) !important;
+  pointer-events: none !important;
+  transition: opacity 0.4s ease-out, transform 0.6s ease-in !important;
+}
+
+html.manual-switching .VPDoc {
+  opacity: 0 !important;
+  transform: translateY(150px) !important;
+  pointer-events: none !important;
+  transition: opacity 0.2s ease-out, transform 0.3s ease-in !important;
+}

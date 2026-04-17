@@ -33,7 +33,7 @@ const grid = computed((): string => {
 <template>
   <div v-if="features" class="Features">
     <div class="container">
-      <div class="items">
+      <div class="items" data-aos="fade-up" data-aos-offset="0">
         <div v-for="feature in features" :key="feature.title" class="item" :class="[grid]">
           <Feature :image="feature.image" :icon="feature.icon" :title="feature.title" :details="feature.details" />
         </div>
@@ -46,6 +46,12 @@ const grid = computed((): string => {
 .Features {
   position: relative;
   padding: 0 24px;
+}
+
+@media (max-width: 959px) {
+  .items[data-aos] {
+    transition-delay: 0.4s !important;
+  }
 }
 
 .container {

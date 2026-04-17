@@ -1,5 +1,5 @@
 <template>
-  <div class="FeatureTitle">
+  <div class="FeatureTitle" data-aos="fade-up" data-aos-offset="0">
     <div class="container">
       <p class="title">What's different with Kotatsu?</p>
       <h1 class="subtitle">And here's how it differs!</h1>
@@ -11,6 +11,12 @@
 .FeatureTitle {
   position: relative;
   padding: 0 24px 24px 24px;
+}
+
+@media (max-width: 959px) {
+  .FeatureTitle[data-aos] {
+    transition-delay: 0.4s !important;
+  }
 }
 
 .container {

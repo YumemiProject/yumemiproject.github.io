@@ -2,7 +2,8 @@
 import type { DefaultTheme } from "vitepress/theme";
 
 import VPImage from "vitepress/dist/client/theme-default/components/VPImage.vue";
-import { inject, type Ref } from "vue";
+import Typed from "typed.js";
+import { inject, onMounted, onUnmounted, type Ref, ref } from "vue";
 
 import BaseButton from "./BaseButton.vue";
 
@@ -20,11 +21,35 @@ interface Data {
   actions: HeroAction[];
 }
 
-defineProps<{
+const props = defineProps<{
   data: Data;
 }>();
 
 const heroImageSlotExists = inject("hero-image-slot-exists") as Ref<boolean>;
+
+const typedElement = ref<HTMLElement | null>(null);
+let typedInstance: Typed | null = null;
+
+onMounted(() => {
+  if (typedElement.value && props.data.text) {
+    const textWithPauses = props.data.text.replace(". ", ".^1000 ");
+    typedInstance = new Typed(typedElement.value, {
+      strings: [textWithPauses],
+      typeSpeed: 50,
+      backSpeed: 30,
+      backDelay: 2000,
+      loop: false,
+      showCursor: true,
+      cursorChar: "|",
+      contentType: "html",
+      startDelay: 1000,
+    });
+  }
+});
+
+onUnmounted(() => {
+  typedInstance?.destroy();
+});
 </script>
 
 <template>
@@ -32,21 +57,26 @@ const heroImageSlotExists = inject("hero-image-slot-exists") as Ref<boolean>;
     <div class="container">
       <div class="main">
         <slot name="home-hero-info">
-          <h1 v-if="data.title" class="title">
+          <h1 v-if="data.title" class="title" data-aos="fade-up" data-aos-delay="100" data-aos-offset="0">
             <span class="clip" v-html="data.title"></span>
           </h1>
-          <h2 v-if="data.text" class="text">
-            <span class="clip" v-html="data.text"></span>
+          <h2 v-if="data.text" class="text" data-aos="fade-up" data-aos-delay="200" data-aos-offset="0">
+            <span class="typed-container">
+              <span class="placeholder">{{ data.text }}</span>
+              <span class="typed-overlay">
+                <span ref="typedElement" class="clip"></span>
+              </span>
+            </span>
           </h2>
-          <p v-if="data.tagline" class="description" v-html="data.tagline"></p>
+          <p v-if="data.tagline" class="description" v-html="data.tagline" data-aos="fade-up" data-aos-delay="300" data-aos-offset="0"></p>
         </slot>
-        <div v-if="data.actions" class="actions">
+        <div v-if="data.actions" class="actions" data-aos="fade-up" data-aos-delay="400" data-aos-offset="0">
           <p v-for="action in data.actions" :key="action.link" :class="['action', { 'action--download': action.link === '/download/' }]">
             <BaseButton tag="a" :theme="action.theme" :text="action.text" :href="action.link" />
           </p>
         </div>
       </div>
-      <div v-if="data.image || heroImageSlotExists" class="image">
+      <div v-if="data.image || heroImageSlotExists" class="image" data-aos="fade-up" data-aos-delay="500" data-aos-offset="0">
         <div class="image-container">
           <slot name="image">
             <VPImage class="image-src" :image="data.image" />
@@ -58,6 +88,11 @@ const heroImageSlotExists = inject("hero-image-slot-exists") as Ref<boolean>;
 </template>
 
 <style scoped>
+:deep(.typed-cursor) {
+  color: var(--vp-c-brand-1);
+  font-weight: 400;
+}
+
 .VPHomeHero {
   margin-top: calc((var(--vp-nav-height) + var(--var-layout-top-height, 0px)) * -1);
   padding: calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px) + 48px) 24px 48px;
@@ -160,6 +195,23 @@ const heroImageSlotExists = inject("hero-image-slot-exists") as Ref<boolean>;
   line-height: 50px;
   font-weight: 700;
   max-width: 392px;
+}
+
+.typed-container {
+  position: relative;
+  display: inline-block;
+}
+
+.placeholder {
+  visibility: hidden;
+  white-space: pre-wrap;
+}
+
+.typed-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
   white-space: pre-wrap;
 }
 
@@ -301,28 +353,57 @@ const heroImageSlotExists = inject("hero-image-slot-exists") as Ref<boolean>;
 
 .action :deep(.Button.brand:hover) {
   box-shadow:
-    0 0 0 3px color-mix(in srgb, var(--vp-c-brand-1) 24%, transparent),
-    0 0 20px color-mix(in srgb, var(--vp-c-brand-1) 44%, transparent),
-    0 10px 24px color-mix(in srgb, var(--vp-c-brand-1) 30%, transparent);
+    0 0 0 3px #a94f683D,
+    0 0 20px #a94f6870,
+    0 10px 24px #a94f684D;
 }
 
 .action :deep(.Button.alt:hover) {
   box-shadow:
-    0 0 0 3px color-mix(in srgb, var(--vp-c-gray-1) 62%, transparent),
-    0 0 20px color-mix(in srgb, var(--vp-c-accent-1) 24%, transparent),
-    0 10px 24px color-mix(in srgb, var(--vp-c-accent-1) 18%, transparent);
+    0 0 0 3px #f7f7f79E,
+    0 0 20px #575e713D,
+    0 10px 24px #575e712E;
 }
 
 :global(html:not(.dark) .VPHomeHero .action--download .Button.brand:hover) {
   box-shadow:
-    0 0 0 3px color-mix(in srgb, #f5b3bf 36%, transparent),
-    0 0 20px color-mix(in srgb, #f5b3bf 52%, transparent),
-    0 10px 24px color-mix(in srgb, #f5b3bf 38%, transparent);
+    0 0 0 3px #f5b3bf5C,
+    0 0 20px #f5b3bf85,
+    0 10px 24px #f5b3bf61;
+}
+
+@supports (color: color-mix(in srgb, white, black)) {
+  .action :deep(.Button.brand:hover) {
+    box-shadow:
+      0 0 0 3px color-mix(in srgb, var(--vp-c-brand-1) 24%, transparent),
+      0 0 20px color-mix(in srgb, var(--vp-c-brand-1) 44%, transparent),
+      0 10px 24px color-mix(in srgb, var(--vp-c-brand-1) 30%, transparent);
+  }
+
+  .action :deep(.Button.alt:hover) {
+    box-shadow:
+      0 0 0 3px color-mix(in srgb, var(--vp-c-gray-1) 62%, transparent),
+      0 0 20px color-mix(in srgb, var(--vp-c-accent-1) 24%, transparent),
+      0 10px 24px color-mix(in srgb, var(--vp-c-accent-1) 18%, transparent);
+  }
+
+  :global(html:not(.dark) .VPHomeHero .action--download .Button.brand:hover) {
+    box-shadow:
+      0 0 0 3px color-mix(in srgb, #f5b3bf 36%, transparent),
+      0 0 20px color-mix(in srgb, #f5b3bf 52%, transparent),
+      0 10px 24px color-mix(in srgb, #f5b3bf 38%, transparent);
+  }
 }
 
 .image {
   order: 1;
   margin: -76px -24px -48px;
+}
+
+@media (max-width: 959px) {
+  .image[data-aos] {
+    transition-delay: 0s !important;
+  }
 }
 
 @media (min-width: 640px) {
