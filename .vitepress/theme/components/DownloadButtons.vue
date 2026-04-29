@@ -38,7 +38,7 @@ function handleAnalytics(type: "Stable" | "Beta") {
         <span class="version">{{ downloadInformation.beta.tagName }}</span>
       </a>
     </div>
-    <span class="version-disclaimer"> Requires <strong>Android 6.0</strong> or higher. </span>
+    <span class="version-disclaimer"> Requires <strong>Android 5.0</strong> or higher. </span>
   </div>
 </template>
 
