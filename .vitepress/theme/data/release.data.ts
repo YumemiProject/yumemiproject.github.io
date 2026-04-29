@@ -17,6 +17,7 @@ type GitHubRelease = GetResponseDataTypeFromEndpointMethod<typeof octokit.repos.
 
 export interface AppRelease {
   stable: GitHubRelease;
+  beta?: GitHubRelease;
 }
 
 declare const data: AppRelease;
@@ -37,12 +38,13 @@ export default defineLoader({
     });
 
     const stable = releases.find((release) => !release.draft && !release.prerelease);
+    const beta = releases.find((release) => !release.draft && release.prerelease);
 
     if (!stable) {
       throw new Error("Unable to find a stable release in UsagiApp/Usagi");
     }
 
-    const releaseData = { stable };
+    const releaseData = { stable, beta };
 
     if (isDev) {
       console.log("Creating release cache");
