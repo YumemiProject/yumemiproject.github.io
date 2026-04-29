@@ -505,55 +505,9 @@ html.cross-switching .VPSidebar {
   transition: opacity 0.4s ease-out, transform 0.6s ease-in !important;
 }
 
-html.cross-switching,
-html.cross-switching body,
-html.cross-switching .VPApp,
-html.cross-switching .VPContent,
-html.manual-switching,
-html.manual-switching body,
-html.manual-switching .VPApp,
-html.manual-switching .VPContent {
-  background: var(--vp-c-bg) !important;
-}
-
-html.cross-switching .VPNav,
-html.manual-switching .VPNav {
-  box-shadow: none !important;
-}
-
-html,
-body {
-  overscroll-behavior: none;
-}
-
-html.cross-switching .image-bg,
-html.manual-switching .image-bg,
-html.cross-switching .VPHomeHero,
-html.manual-switching .VPHomeHero {
-  display: none !important;
-}
-
-html.manual-switching,
-html.cross-switching {
-  --vp-home-hero-image-background-image: none !important;
-  --vp-home-hero-name-background: none !important;
-}
-
-html.manual-switching::before,
-html.manual-switching::after,
-html.manual-switching body::before,
-html.manual-switching body::after,
-html.cross-switching::before,
-html.cross-switching::after,
-html.cross-switching body::before,
-html.cross-switching body::after {
-  display: none !important;
-}
-
 html.manual-switching .VPDoc {
   opacity: 0 !important;
   transform: translateY(150px) !important;
   pointer-events: none !important;
-  background: var(--vp-c-bg) !important;
   transition: opacity 0.2s ease-out, transform 0.3s ease-in !important;
 }
