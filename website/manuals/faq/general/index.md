@@ -22,7 +22,7 @@ To post app issues, bugs, and feature requests please open a ticket on GitHub by
 
 ## Why isn't Usagi on the Google Play Store?
 
-**Usagi** won't be on the **Google Play Store**. **Google** might take down the app due to certain content, which the developers wishes to avoid.
+**Usagi** won't be on the **Google Play Store**. However, it might officially appear in the future.
 
 To report **Usagi** copycats on the **Google Play Store**, fill out [this form](https://support.google.com/googleplay/android-developer/contact/takedown) following the steps below.
 

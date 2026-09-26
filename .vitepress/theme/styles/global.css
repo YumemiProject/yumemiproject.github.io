@@ -1,6 +1,6 @@
 :root {
   --vp-font-family-base: "Montserrat", sans-serif;
-  --vp-shadow-6: 0px 4px 15px rgba(188, 98, 123, 0.16);
+  --vp-shadow-6: 0px 4px 15px rgba(51, 70, 113, 0.16);
   --vp-border: var(--vp-border-width) solid var(--vp-c-bg-soft);
   --vp-border-width: 4px;
   --vp-border-radius: 20px;
@@ -8,10 +8,10 @@
 
   --vp-c-gray-1: #f7f7f7;
 
-  --vp-c-blue-1: #a94f68;
-  --vp-c-blue-2: #bc627b;
-  --vp-c-blue-3: #cf7892;
-  --vp-c-blue-soft: #cf78921a;
+  --vp-c-blue-1: #334671;
+  --vp-c-blue-2: #435b91;
+  --vp-c-blue-3: #5672b1;
+  --vp-c-blue-soft: rgba(51, 70, 113, 0.12);
 
   --vp-c-accent-1: #575e71;
   --vp-c-accent-2: #4b5061;
@@ -63,7 +63,7 @@
   --vp-local-search-bg: var(--vp-c-bg-soft);
   --vp-local-search-result-bg: var(--vp-c-white);
   --vp-local-search-result-shadow: 0 1px 3px 0 #d4d9e1;
-  --vp-local-search-footer-shadow: 0 -1px 0 0 #e0e3e8, 0 -3px 6px 0 rgba(188, 98, 123, 0.16);
+  --vp-local-search-footer-shadow: 0 -1px 0 0 #e0e3e8, 0 -3px 6px 0 rgba(51, 70, 113, 0.16);
 
   --vp-home-hero-name-color: transparent;
   --vp-home-hero-name-background: -webkit-linear-gradient(120deg, var(--vp-c-brand-1) 30%, var(--vp-c-brand-dark));
@@ -80,9 +80,9 @@
 }
 
 .dark {
-  --vp-c-blue-1: #f5b3bf;
-  --vp-c-blue-2: #e89cad;
-  --vp-c-blue-3: #d78799;
+  --vp-c-blue-1: #8faee5;
+  --vp-c-blue-2: #789cdb;
+  --vp-c-blue-3: #5f86ce;
   --vp-c-accent-1: #bec6dc;
   --vp-c-accent-2: #a0a7bd;
   --vp-c-accent-3: #b2b8c9;
@@ -90,7 +90,7 @@
   --vp-local-search-result-shadow: none;
   --vp-local-search-footer-shadow: none;
   --vp-home-hero-image-background-image: linear-gradient(-45deg, var(--vp-c-accent-1) 25%, var(--vp-c-brand-1) 25%);
-  --vp-button-brand-active-text: #3f2530;
+  --vp-button-brand-active-text: #17243e;
 }
 
 @media (min-width: 640px) {
@@ -510,4 +510,19 @@ html.manual-switching .VPDoc {
   transform: translateY(10px) !important;
   pointer-events: none !important;
   transition: opacity 0.2s ease-out, transform 0.3s ease-in !important;
+}
+
+/* Balance homepage bottom spacing with top spacing */
+.VPContent.is-home .VPHome {
+  margin-bottom: 30px !important;
+}
+
+@media (min-width: 768px) {
+  .VPContent.is-home .VPHome {
+    margin-bottom: 44px !important;
+  }
+}
+
+.VPContent.is-home~.y-box .y-area:first-child {
+  padding-top: 1.5rem;
 }

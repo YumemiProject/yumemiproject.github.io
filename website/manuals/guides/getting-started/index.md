@@ -18,13 +18,13 @@ Essential information to help you get set up with Usagi.
 
 ### Importing source plugins (optional)
 
-Usagi does not include preloaded online sources. You can import any external plugin that is compatible with [core-exts](https://github.com/UsagiApp/core-exts) library.
+Usagi does not include preloaded online sources. You can import any external plugin that is compatible with [Tsuki](https://github.com/UsagiApp/Tsuki) or [TsukiMix](https://github.com/UsagiApp/TsukiMix) core library.
 
 1. Go to **Settings** -> **Sources** -> **Manage plugins**.
 1. Tap **+** and choose:
-   - **Import from GitHub**: enter `owner/repository`. Usagi will install a `.jar` from the latest release.
-   - **Import from local storage**: pick a local `.jar` plugin file.
-1. After import succeeds, open **Sources Catalog** and enable the sources you want to use.
+   - **Import from GitHub**: Type `owner/repository` or full third-party plugin URL.
+   - **Import from local storage**: pick a local `.jar` plugin file from storage.
+1. After import succeeds, open **Sources Catalog** and choose the content you want to use.
 
 ### Adding series to your favourites
 

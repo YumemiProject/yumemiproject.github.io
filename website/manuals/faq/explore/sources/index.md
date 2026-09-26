@@ -8,9 +8,9 @@ footer: false
 
 Frequently Asked Questions about Sources.
 
-## Where do sources / content come from?
+## Where do content come from?
 
-Usagi can load content from offline sources (pre-downloaded content from local storage) or external plugins (`.jar`).
+Usagi can load third-party content from external plugins / extensions (pre-downloaded content from local storage).
 
 Install plugins from:
 

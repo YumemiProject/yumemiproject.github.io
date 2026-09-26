@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { DefaultTheme } from "vitepress/theme";
 
-import VPImage from "vitepress/dist/client/theme-default/components/VPImage.vue";
 import Typed from "typed.js";
+import VPImage from "vitepress/dist/client/theme-default/components/VPImage.vue";
 import { inject, onMounted, onUnmounted, type Ref, ref } from "vue";
 
 import BaseButton from "./BaseButton.vue";
@@ -28,7 +28,7 @@ const props = defineProps<{
 const heroImageSlotExists = inject("hero-image-slot-exists") as Ref<boolean>;
 
 const typedElement = ref<HTMLElement | null>(null);
-let typedInstance: Typed | null = null;
+let typedInstance: null | Typed = null;
 
 onMounted(() => {
   if (typedElement.value && props.data.text) {
@@ -68,7 +68,7 @@ onUnmounted(() => {
               </span>
             </span>
           </h2>
-          <p v-if="data.tagline" class="description" v-html="data.tagline" data-aos="fade-up" data-aos-delay="300" data-aos-offset="0"></p>
+          <p v-if="data.tagline" class="description" data-aos="fade-up" data-aos-delay="300" data-aos-offset="0" v-html="data.tagline"></p>
         </slot>
         <div v-if="data.actions" class="actions" data-aos="fade-up" data-aos-delay="400" data-aos-offset="0">
           <p v-for="action in data.actions" :key="action.link" :class="['action', { 'action--download': action.link === '/download/' }]">
@@ -94,19 +94,19 @@ onUnmounted(() => {
 }
 
 .VPHomeHero {
-  margin-top: calc((var(--vp-nav-height) + var(--var-layout-top-height, 0px)) * -1);
-  padding: calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px) + 48px) 24px 48px;
+  margin-top: calc((var(--vp-nav-height) + var(--vp-layout-top-height, 0px)) * -1);
+  padding: calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px) + 16px) 24px 32px;
 }
 
 @media (min-width: 640px) {
   .VPHomeHero {
-    padding: calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px) + 80px) 48px 64px;
+    padding: calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px) + 24px) 48px 40px;
   }
 }
 
 @media (min-width: 960px) {
   .VPHomeHero {
-    padding: calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px) + 80px) 64px 64px;
+    padding: calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px) + 24px) 64px 40px;
   }
 }
 
@@ -120,6 +120,8 @@ onUnmounted(() => {
 @media (min-width: 960px) {
   .container {
     flex-direction: row;
+    align-items: center;
+    gap: clamp(32px, 5vw, 88px);
   }
 }
 
@@ -162,10 +164,6 @@ onUnmounted(() => {
   white-space: pre-wrap;
 }
 
-:global(html:not(.dark) .VPHomeHero .title) {
-  color: #f8c3cb;
-}
-
 .VPHomeHero.has-image .title {
   margin: 0 auto;
 }
@@ -185,7 +183,7 @@ onUnmounted(() => {
   }
 
   .VPHomeHero.has-image .title {
-    margin: 1.5rem 0;
+    margin: 0.25rem 0 1rem;
   }
 }
 
@@ -334,28 +332,28 @@ onUnmounted(() => {
 }
 
 :global(html:not(.dark) .VPHomeHero .action--download .Button.brand) {
-  border-color: #f5b3bf;
-  color: #d78799;
+  border-color: var(--vp-c-brand-1);
+  color: var(--vp-c-brand-1);
   background-color: transparent;
 }
 
 :global(html:not(.dark) .VPHomeHero .action--download .Button.brand:hover) {
-  border-color: #f5b3bf;
-  color: #4f2f3a;
-  background-color: #f5b3bf;
+  border-color: var(--vp-c-brand-1);
+  color: #ffffff;
+  background-color: var(--vp-c-brand-1);
 }
 
 :global(html:not(.dark) .VPHomeHero .action--download .Button.brand:active) {
-  border-color: #e8a1af;
-  color: #4f2f3a;
-  background-color: #e8a1af;
+  border-color: var(--vp-c-brand-2);
+  color: #ffffff;
+  background-color: var(--vp-c-brand-2);
 }
 
 .action :deep(.Button.brand:hover) {
   box-shadow:
-    0 0 0 3px #a94f683D,
-    0 0 20px #a94f6870,
-    0 10px 24px #a94f684D;
+    0 0 0 3px rgba(51, 70, 113, 0.24),
+    0 0 20px rgba(51, 70, 113, 0.44),
+    0 10px 24px rgba(51, 70, 113, 0.3);
 }
 
 .action :deep(.Button.alt:hover) {
@@ -367,9 +365,9 @@ onUnmounted(() => {
 
 :global(html:not(.dark) .VPHomeHero .action--download .Button.brand:hover) {
   box-shadow:
-    0 0 0 3px #f5b3bf5C,
-    0 0 20px #f5b3bf85,
-    0 10px 24px #f5b3bf61;
+    0 0 0 3px rgba(51, 70, 113, 0.24),
+    0 0 20px rgba(51, 70, 113, 0.44),
+    0 10px 24px rgba(51, 70, 113, 0.3);
 }
 
 @supports (color: color-mix(in srgb, white, black)) {
@@ -389,26 +387,29 @@ onUnmounted(() => {
 
   :global(html:not(.dark) .VPHomeHero .action--download .Button.brand:hover) {
     box-shadow:
-      0 0 0 3px color-mix(in srgb, #f5b3bf 36%, transparent),
-      0 0 20px color-mix(in srgb, #f5b3bf 52%, transparent),
-      0 10px 24px color-mix(in srgb, #f5b3bf 38%, transparent);
+      0 0 0 3px color-mix(in srgb, var(--vp-c-brand-1) 24%, transparent),
+      0 0 20px color-mix(in srgb, var(--vp-c-brand-1) 44%, transparent),
+      0 10px 24px color-mix(in srgb, var(--vp-c-brand-1) 30%, transparent);
   }
 }
 
 .image {
   order: 1;
-  margin: -76px -24px -48px;
+  margin: 0 auto 24px;
+  width: 100%;
 }
 
 @media (max-width: 959px) {
   .image[data-aos] {
-    transition-delay: 0s !important;
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
 }
 
 @media (min-width: 640px) {
   .image {
-    margin: -108px -24px -48px;
+    margin: 0 auto 32px;
   }
 }
 
@@ -418,20 +419,24 @@ onUnmounted(() => {
     order: 2;
     margin: 0;
     min-height: 100%;
+    padding-left: clamp(16px, 3vw, 48px);
+    width: auto;
   }
 }
 
 .image-container {
   position: relative;
   margin: 0 auto;
-  width: 320px;
-  height: 320px;
+  width: 335px;
+  max-width: 100%;
+  height: 410px;
 }
 
 @media (min-width: 640px) {
   .image-container {
     width: 392px;
-    height: 392px;
+    max-width: 100%;
+    height: 460px;
   }
 }
 
@@ -442,6 +447,8 @@ onUnmounted(() => {
     align-items: center;
     width: 100%;
     height: 100%;
+    min-height: min(580px, 65vh);
+    max-width: none;
   }
 }
 
@@ -477,22 +484,27 @@ onUnmounted(() => {
   position: absolute;
   top: 50%;
   left: 50%;
-  max-width: 192px;
-  max-height: 192px;
+  max-width: 100%;
+  max-height: min(395px, 49vh);
+  width: auto;
+  height: auto;
   transform: translate(-50%, -50%);
+  filter: drop-shadow(0 16px 40px rgba(0, 0, 0, 0.22));
 }
 
 @media (min-width: 640px) {
   :deep(.image-src) {
-    max-width: 256px;
-    max-height: 256px;
+    max-height: min(440px, 50vh);
+    top: 50%;
   }
 }
 
 @media (min-width: 960px) {
   :deep(.image-src) {
-    max-width: 320px;
-    max-height: 320px;
+    max-width: min(360px, 28vw);
+    max-height: min(600px, 68vh);
+    top: calc(50% + clamp(12px, 2.8vh, 28px));
+    left: calc(50% + clamp(0px, 1.2vw, 16px));
   }
 }
 </style>

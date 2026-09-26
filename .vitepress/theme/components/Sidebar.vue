@@ -1,9 +1,10 @@
 <script lang="ts" setup>
 import { useScrollLock } from "@vueuse/core";
+import Lenis from "lenis";
 import { type DefaultTheme, inBrowser, useData, useRoute } from "vitepress";
 import VPSidebarItem from "vitepress/dist/client/theme-default/components/VPSidebarItem.vue";
 import { useSidebar } from "vitepress/theme";
-import { computed, ref, watch } from "vue";
+import { computed, nextTick, onMounted, onUnmounted, ref, watch } from "vue";
 
 const { sidebar: flatSidebar, sidebarGroups, hasSidebar } = useSidebar();
 const route = useRoute();
@@ -19,6 +20,26 @@ const props = defineProps<{
 // a11y: focus Nav element when menu has opened
 const navEl = ref<HTMLElement>();
 const isLocked = useScrollLock(inBrowser ? document.body : null);
+let sidebarLenis: Lenis | null = null;
+
+onMounted(() => {
+  if (navEl.value) {
+    const navContent = navEl.value.querySelector<HTMLElement>("#VPSidebarNav") || navEl.value;
+    sidebarLenis = new Lenis({
+      wrapper: navEl.value,
+      content: navContent,
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      autoRaf: true,
+      overscroll: false,
+    });
+  }
+});
+
+onUnmounted(() => {
+  sidebarLenis?.destroy();
+  sidebarLenis = null;
+});
 
 watch(
   [props, navEl],
@@ -27,8 +48,21 @@ watch(
       isLocked.value = true;
       navEl.value?.focus();
     } else isLocked.value = false;
+    nextTick(() => {
+      sidebarLenis?.resize();
+    });
   },
   { immediate: true, flush: "post" },
+);
+
+watch(
+  sidebar,
+  () => {
+    nextTick(() => {
+      sidebarLenis?.resize();
+    });
+  },
+  { deep: true },
 );
 
 const { lang } = useData();
@@ -38,6 +72,10 @@ const activeGroupEl = ref<HTMLElement | null>(null);
 watch(
   () => route.path,
   () => {
+    nextTick(() => {
+      sidebarLenis?.resize();
+    });
+
     if (!route.path.includes("/components/")) {
       return;
     }
@@ -52,9 +90,13 @@ watch(
     const offset = Number.parseInt(getComputedStyle(document.documentElement).getPropertyValue("--vp-nav-height")) * 2;
 
     if (!isInViewport(activeGroupEl.value, offset)) {
-      navEl.value.scrollTo({
-        top: activeGroupEl.value.offsetTop - offset,
-      });
+      if (sidebarLenis) {
+        sidebarLenis.scrollTo(activeGroupEl.value.offsetTop - offset);
+      } else {
+        navEl.value.scrollTo({
+          top: activeGroupEl.value.offsetTop - offset,
+        });
+      }
     }
   },
   { flush: "post" },
@@ -71,7 +113,7 @@ function isInViewport(el: HTMLElement, offset: number) {
 </script>
 
 <template>
-  <aside v-if="hasSidebar" ref="navEl" class="VPSidebar" :class="{ open }" @click.stop>
+  <aside v-if="hasSidebar" ref="navEl" class="VPSidebar" data-lenis-prevent :class="{ open }" @click.stop>
     <div class="curtain" />
 
     <nav id="VPSidebarNav" class="nav" aria-labelledby="sidebar-aria-label" tabindex="-1">

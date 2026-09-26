@@ -3,7 +3,7 @@ defineProps<{ title: string; description?: string; dir?: string; logo: string }>
 </script>
 
 <template>
-  <div style="width: 1200px; height: 628px; background-color: #a94f68; display: flex; flex-direction: row; align-items: stretch;">
+  <div style="width: 1200px; height: 628px; background-color: #334671; display: flex; flex-direction: row; align-items: stretch;">
     <div style="padding: 56px; width: 800px; display: flex; flex-direction: column; justify-content: space-between; flex-grow: 1;">
       <div style="width: 100%; display: flex; justify-content: space-between; align-items: center; font-size: 40px; font-weight: 500;">
         <div style="display: flex; align-items: center;">

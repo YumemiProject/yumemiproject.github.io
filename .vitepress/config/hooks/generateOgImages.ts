@@ -112,7 +112,7 @@ async function generateImage({ page, outDir, fonts, logo, icon }: GenerateImages
       style: {
         width: "1200px",
         height: "628px",
-        backgroundColor: "#a94f68",
+        backgroundColor: "#334671",
         display: "flex",
         flexDirection: "row",
         alignItems: "stretch",

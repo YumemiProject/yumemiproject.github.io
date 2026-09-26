@@ -45,11 +45,11 @@ const iconSvg = computed(() => (props.icon ? ICONS[props.icon] : undefined));
 <style scoped>
 .Feature {
   display: block;
-  border: 2px solid color-mix(in srgb, #f5b3bf 55%, transparent);
+  border: 2px solid color-mix(in srgb, var(--vp-c-brand-1) 35%, transparent);
   border-radius: var(--vp-border-radius);
   height: 100%;
-  background: color-mix(in srgb, var(--vp-c-bg) 90%, #f5b3bf 10%);
-  box-shadow: 0 8px 24px color-mix(in srgb, #f5b3bf 24%, transparent);
+  background: color-mix(in srgb, var(--vp-c-bg) 92%, var(--vp-c-brand-1) 8%);
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--vp-c-brand-1) 16%, transparent);
   transition:
     border-color 0.25s,
     background-color 0.25s,
@@ -58,8 +58,8 @@ const iconSvg = computed(() => (props.icon ? ICONS[props.icon] : undefined));
 }
 
 .Feature:hover {
-  border-color: color-mix(in srgb, #f5b3bf 80%, transparent);
-  box-shadow: 0 12px 30px color-mix(in srgb, #f5b3bf 34%, transparent);
+  border-color: color-mix(in srgb, var(--vp-c-brand-1) 60%, transparent);
+  box-shadow: 0 12px 30px color-mix(in srgb, var(--vp-c-brand-1) 24%, transparent);
   transform: translateY(-2px);
 }
 
@@ -107,8 +107,8 @@ const iconSvg = computed(() => (props.icon ? ICONS[props.icon] : undefined));
   width: 56px;
   height: 56px;
   border-radius: 14px;
-  color: #c97187;
-  background: color-mix(in srgb, #f5b3bf 30%, transparent);
+  color: var(--vp-c-brand-1);
+  background: color-mix(in srgb, var(--vp-c-brand-1) 18%, transparent);
 }
 
 .icon :deep(svg) {
